@@ -1,0 +1,15 @@
+* {
+  font-family: var(--font);
+}
+
+:root {
+  --color-bg: #008BFE;
+  --color-cl: #ffffff;
+  --font: 'Roboto', sans-serif;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}

@@ -33,6 +33,8 @@ const toggleCard = () => {
     </div>
 
     <div class="content back">
+      <div class="number">{{ number }}</div>
+     
       <div class="back-content">
         Обратная сторона
       </div>
@@ -69,7 +71,7 @@ const toggleCard = () => {
 
 .back {
   transform: rotateY(180deg);
-  background: #f5f5f5;
+ 
 }
 
 .flipped {
@@ -84,7 +86,7 @@ const toggleCard = () => {
   background-color: #fff;
   padding: 2px 8px;
   z-index: 1;
-  top: 15px;
+  top: -14px;
   left: 15px;
 }
 
@@ -97,6 +99,7 @@ const toggleCard = () => {
   color: #666;
   text-transform: lowercase;
   margin: 0;
+
 }
 
 .main-action {
@@ -113,6 +116,8 @@ const toggleCard = () => {
   width: calc(100% - 80px);
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: -17px;
+
 }
 
 .back-content {

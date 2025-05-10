@@ -1,4 +1,3 @@
-
 <script setup>
 import { ref } from 'vue';
 
@@ -34,15 +33,28 @@ const toggleCard = () => {
 
     <div class="content back">
       <div class="number">{{ number }}</div>
-     
+
       <div class="back-content">
         Обратная сторона
+      </div>
+      <div class="actions">
+        <button @click.stop="$emit('answer', true)">✅</button>
+        <button @click.stop="$emit('answer', false)">❌</button>
+
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.actions {
+
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  margin-top: 300px;
+}
+
 .card {
   width: 200px;
   height: 300px;
@@ -62,16 +74,18 @@ const toggleCard = () => {
   width: calc(100% - 40px);
   height: calc(100% - 40px);
   backface-visibility: hidden;
-  display: flex;
-  flex-direction: column;
   border: 1px solid #cce8ff;
   border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
 }
 
 .back {
   transform: rotateY(180deg);
- 
+
 }
 
 .flipped {

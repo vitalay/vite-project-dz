@@ -1,32 +1,55 @@
 <script setup>
-import Card from "./components/Card.vue";
-import IconLocation from "./icons/IconLocation.vue";
 import { ref } from 'vue';
+import Card from "./components/Card.vue";
 import Score from './components/Score.vue';
+import IconLocation from "./icons/IconLocation.vue";
 
+// Состояния приложения
 const currentScore = ref(100);
+const cardStatus = ref('unadmitted');
+const isGameStarted = ref(false);
+
+// Обработчики событий карточки
+const handleStatusUpdate = (newStatus) => {
+  cardStatus.value = newStatus;
+};
+
+const handleAnswer = (isCorrect) => {
+  currentScore.value += isCorrect ? 1 : -1;
+};
+
+// Запуск игры
+const startGame = () => {
+  isGameStarted.value = true;
+  currentScore.value = 0;
+  cardStatus.value = 'unadmitted';
+};
+
+// Клик по иконке локации
+const handleIconClick = () => {
+  console.log('Нажатие на иконку локации');
+};
 </script>
 
 <template>
+  <div class="app-container">
+    <header class="header app-header">
+      <h1 class="title">Запомни слово</h1>
+      <div class="header-controls">
+        <Score :score="currentScore" />
+        <button class="btn-icon" @click="handleIconClick" aria-label="Локация">
+          <IconLocation color="#008BFE" :size="28" class="icon-class" />
+        </button>
+      </div>
+    </header>
 
-
-  <header class="header app-header">
-
-    <h1 class="title">ЗАПОМНИ СЛОВО</h1>
-    <button class="btn-start">
-      <Score :score="currentScore" />
-      <IconLocation color="#008BFE" :size="28" class="icon-class" style="margin-right: 10px" @click="handleIconClick" />
-
-
-    </button>
-  </header>
-
-  <main class="main-content">
-     <Card /> 
-    <button class="btn">Начать игру</button>
-  </main>
-
-  
+    <main class="main-content">
+      <Card v-if="isGameStarted" :status="cardStatus" @update-status="handleStatusUpdate" @answer="handleAnswer" />
+      <button class="btn" @click="startGame" :disabled="isGameStarted">
+        {{ isGameStarted ? 'Игра начата' : 'Начать игру' }}
+      </button>
+    </main>
+  </div>
 </template>
 
 <style scoped>

@@ -12,14 +12,17 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['update-status']);
+const emit = defineEmits({
+  'updateStatus': String,
+  'answer': Boolean
+});
 
 const isFlipped = ref(false);
 
 const toggleCard = () => {
   isFlipped.value = !isFlipped.value;
   const newStatus = props.status === 'unadmitted' ? 'admitted' : 'unadmitted';
-  emit('update-status', newStatus);
+  emit('updateStatus', newStatus);
 };
 </script>
 
@@ -28,7 +31,7 @@ const toggleCard = () => {
     <div class="content front">
       <div class="number">{{ number }}</div>
       <div class="status">{{ status }}</div>
-      <div class="main-action">ПЕРЕВЕНУТЬ</div>
+      <div class="main-action">ПЕРЕВЕРНУТЬ</div>
     </div>
 
     <div class="content back">
@@ -50,9 +53,13 @@ const toggleCard = () => {
 .actions {
 
   display: flex;
-  gap: 40px;
-  justify-content: center;
-  margin-top: 300px;
+    gap: 40px;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    justify-content: center;
 }
 
 .card {
@@ -63,10 +70,13 @@ const toggleCard = () => {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   position: relative;
   cursor: pointer;
-  transition: transform 0.6s;
+  transition: transform 0.6s ease-in-out;
   transform-style: preserve-3d;
   border: 1px solid #000;
 
+}
+.card:hover:not(.flipped) {
+  transform: translateY(-5px);
 }
 
 .content {

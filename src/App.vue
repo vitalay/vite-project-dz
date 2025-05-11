@@ -1,3 +1,25 @@
+<template>
+  <div class="app-container">
+    <header class="header app-header">
+      <h1 class="title">Запомни слово</h1>
+      <div class="header-controls">
+        <Score :score="currentScore" />
+        <button class="btn-icon" @click="handleIconClick" aria-label="Локация">
+          <IconLocation color="#008BFE" :size="28" class="icon-class" />
+        </button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <Card v-if="isGameStarted" :status="cardStatus" @update-status="handleStatusUpdate" @answer="handleAnswer" />
+      <button class="btn" @click="startGame" :disabled="isGameStarted">
+        {{ isGameStarted ? 'Игра начата' : 'Начать игру' }}
+      </button>
+    </main>
+  </div>
+</template>
+
+
 <script setup>
 import { ref } from 'vue';
 import Card from "./components/Card.vue";
@@ -31,26 +53,6 @@ const handleIconClick = () => {
 };
 </script>
 
-<template>
-  <div class="app-container">
-    <header class="header app-header">
-      <h1 class="title">Запомни слово</h1>
-      <div class="header-controls">
-        <Score :score="currentScore" />
-        <button class="btn-icon" @click="handleIconClick" aria-label="Локация">
-          <IconLocation color="#008BFE" :size="28" class="icon-class" />
-        </button>
-      </div>
-    </header>
-
-    <main class="main-content">
-      <Card v-if="isGameStarted" :status="cardStatus" @update-status="handleStatusUpdate" @answer="handleAnswer" />
-      <button class="btn" @click="startGame" :disabled="isGameStarted">
-        {{ isGameStarted ? 'Игра начата' : 'Начать игру' }}
-      </button>
-    </main>
-  </div>
-</template>
 
 <style scoped>
 .app-header {
